@@ -7,12 +7,12 @@
 </div>
 
 <div class="header__logo hidden-sm-down">
-    <h1><a href="index.html">{{ config('app.name', 'Laravel') }}</a></h1>
+    <h1><a href="{{ route('home') }}">{{ config('app.name') }}</a></h1>
 </div>
 
 <form class="search">
    <div class="search__inner">
-       <input type="text" class="search__text" placeholder="Search for people, files, documents...">
+       <input type="text" class="search__text" placeholder="Pencarian data penduduk, penerima kartu, keikutsertaan program ...">
        <i class="zmdi zmdi-search search__helper" data-ma-action="search-close"></i>
    </div>
 </form>
@@ -25,7 +25,7 @@
 
         <div class="dropdown-menu dropdown-menu-right dropdown-menu--block" role="menu">
             <div class="row app-shortcuts">
-                <a class="col-4 app-shortcuts__item" href="">
+                <a class="col-4 app-shortcuts__item" href="{{ url('calendar') }}">
                     <i class="zmdi zmdi-calendar bg-red"></i>
                     <small class="">Calendar</small>
                 </a>

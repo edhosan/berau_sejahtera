@@ -1,7 +1,7 @@
 <div class="scrollbar-inner">
     <div class="user">
         <div class="user__info" data-toggle="dropdown">
-            <img class="user__img" src="demo/img/profile-pics/8.jpg" alt="">
+            <img class="user__img" src="{{ asset('img/profile/2.jpg') }}" alt="">
             <div>
                 <div class="user__name">{{ Auth::user()->name }}</div>
                 <div class="user__email">{{ Auth::user()->email }}</div>
@@ -18,7 +18,7 @@
     </div>
 
     <ul class="navigation">
-        <li><a href="index.html"><i class="zmdi zmdi-home"></i> Home</a></li>
+        <li class="navigation__{{ active(['home']) }}"><a href="{{ route('home') }}"><i class="zmdi zmdi-home"></i> Home</a></li>
 
         <li class="navigation__sub navigation__sub--{{ active(['users.index','register','users.edit','roles','roles.index','hak_akses']) }}">
             <a href=""><i class="zmdi zmdi-view-week"></i> Administrator</a>
@@ -33,9 +33,9 @@
             </ul>
         </li>
 
-        <li><a href="typography.html"><i class="zmdi zmdi-format-underlined"></i> Typography</a></li>
+        <li class="navigation__{{ active(['kecamatan','kecamatan/create','kampung','kampung/create','rw','rw/create','rt','rt/create','keluarga','keluarga/create','keluarga/create/old','keluarga/rincian','keluarga/rincian/create','penduduk','penduduk/create','rumah_tangga','kelompok']) }}"><a href="{{ url('kecamatan') }}"><i class="zmdi zmdi-format-underlined"></i> Kependudukan</a></li>
 
-        <li><a href="widgets.html"><i class="zmdi zmdi-widgets"></i> Widgets</a></li>
+        <li class="navigation__{{ active(['pendataan','pendataan/create','pendataan/kategori','pendataan/pertanyaan','pendataan/parameter','pendataan/klasifikasi','pendataan/periode']) }}"><a href="{{ url('pendataan') }}"><i class="zmdi zmdi-widgets"></i> Pendataan</a></li>
 
         <li class="navigation__sub">
             <a href=""><i class="zmdi zmdi-view-list"></i> Tables</a>
