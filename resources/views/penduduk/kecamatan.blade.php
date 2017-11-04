@@ -1,4 +1,4 @@
-@extends('penduduk.layout')
+@extends('layouts.default')
 
 @section('vendors-script')
   @parent
@@ -12,113 +12,155 @@
 @endsection
 
 @section('content-penduduk')
-    <div class="card">
-        <div class="card-header">
-            <h5 class="card-title">Wilayah Administrasi Kecamatan</h5>            
-            
-        </div>
-        <div class="card-block">
-            <a href="{{ url('kecamatan/create') }}" class="btn btn-primary waves-effect">Tambah Data</a>
-
-            <div class="table-responsive">
-             <table id="data-table" class="table table-bordered">
-               <thead class="thead-default">
-                   <tr>
-                       <th>ID</th>
-                       <th>Nama Kecamatan</th>
-                       <th>Nama Kepala Camat</th>
-                       <th>Kampung / Kelurahan</th>
-                       <th>RW</th>
-                       <th>RT</th>
-                       <th>KK</th>
-                       <th>Jiwa</th>
-                       <th>LK</th>
-                       <th>PR</th>
-                       <th>Action</th>
-                   </tr>
-               </thead>
-                 <tfoot>
-                    <tr>
-                        <th></th>
-                        <th>Total</th>
-                        <th></th>
-                        <th>7</th>
-                        <th>4</th>
-                        <th>10</th>
-                        <th>50</th>
-                        <th>120</th>
-                        <th>75</th>
-                        <th>65</th>
-                    </tr>
-                </tfoot>
-                <tbody>
-                    <tr>
-                        <td>64.01</td>
-                        <td>Tanjung Redeb</td>
-                        <td></td>
-                        <td>4</td>
-                        <td>30</td>
-                        <td>50</td>
-                        <td>75</td>
-                        <td>125</td>
-                        <td>78</td>
-                        <td>47</td>
-                        <td>
-                            <div class="btn-group">
-                                <a href="{{ url('kampung') }}" class="btn btn-sm btn-outline-info"><i class="zmdi zmdi-view-list"></i> Rincian</a>
-                                <a href="#" class="btn btn-sm btn-outline-success" data-delete-id=""><i class="zmdi zmdi-edit"></i></a>
-                                <a href="#" class="btn btn-sm btn-outline-danger" data-delete-id=""><i class="zmdi zmdi-delete"></i></a>
-
-                            </div>
-                        </td>
-                    </tr>
-                        <tr>
-                        <td>64.02</td>
-                        <td>Sambaliung</td>
-                        <td></td>
-                        <td>4</td>
-                        <td>30</td>
-                        <td>50</td>
-                        <td>75</td>
-                        <td>125</td>
-                        <td>78</td>
-                        <td>47</td>
-                        <td>
-                            <div class="btn-group">
-                                <a href="{{ url('kampung') }}" class="btn btn-sm btn-outline-info"><i class="zmdi zmdi-view-list"></i> Rincian</a>
-                                <a href="#" class="btn btn-sm btn-outline-success" data-delete-id=""><i class="zmdi zmdi-edit"></i></a>
-                                <a href="#" class="btn btn-sm btn-outline-danger" data-delete-id=""><i class="zmdi zmdi-delete"></i></a>
-
-                            </div>
-                        </td>
-                    </tr>
-                    </tr>
-                        <tr>
-                        <td>64.02</td>
-                        <td>Gunung Tabur</td>
-                        <td></td>
-                        <td>4</td>
-                        <td>30</td>
-                        <td>50</td>
-                        <td>75</td>
-                        <td>125</td>
-                        <td>78</td>
-                        <td>47</td>
-                        <td>
-                            <div class="btn-group">
-                                <a href="{{ url('kampung') }}" class="btn btn-sm btn-outline-info"><i class="zmdi zmdi-view-list"></i> Rincian</a>
-                                <a href="#" class="btn btn-sm btn-outline-success" data-delete-id=""><i class="zmdi zmdi-edit"></i></a>
-                                <a href="#" class="btn btn-sm btn-outline-danger" data-delete-id=""><i class="zmdi zmdi-delete"></i></a>
-
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-             </table>
-           </div>
-        </div>
-    </div>
-
-
-     
+   <p></p>
+   <h4 class="card-title">Wilayah Administratif Kecamatan</h4>
+   <a href="{{ route('hak_akses.create') }}" class="btn btn-primary waves-effect">Tambah Data</a>
+   <div class="table-responsive">
+     <table id="data-table-kecamatan" class="table table-bordered">
+       <thead class="thead-default">
+           <tr>
+               <th>ID</th>
+               <th>KECAMATAN</th>
+               <th>TGL.DIBUAT</th>
+               <th>TGL.DIUBAH</th>
+               <th>Action</th>
+           </tr>
+       </thead>
+     </table>
+   </div>  
 @endsection
+
+@push('scripts')
+<script type="text/javascript">
+// Add custom buttons
+var dataTableButtons =  '<div class="dataTables_buttons hidden-sm-down actions">' +
+                            '<span class="actions__item zmdi zmdi-print" data-table-action="print" />' +
+                            '<span class="actions__item zmdi zmdi-fullscreen" data-table-action="fullscreen" />' +
+                            '<div class="dropdown actions__item">' +
+                                '<i data-toggle="dropdown" class="zmdi zmdi-download" />' +
+                                '<ul class="dropdown-menu dropdown-menu-right">' +
+                                    '<a href="" class="dropdown-item" data-table-action="excel">Excel (.xlsx)</a>' +
+                                    '<a href="" class="dropdown-item" data-table-action="csv">CSV (.csv)</a>' +
+                                '</ul>' +
+                            '</div>' +
+                        '</div>';
+
+var table = $('#data-table-kecamatan').DataTable({
+    autoWidth: false,
+    responsive: true,
+    lengthMenu: [[15, 30, 45, -1], ['15 Rows', '30 Rows', '45 Rows', 'Everything']],
+    ajax: '{{ url("kecamatan") }}',
+    serverSide: true,
+    processing: true,
+    columns: [
+        { data: 'id', name: 'id', visible: false },
+        { data: 'nm_kecamatan', name: 'nm_kecamatan' },
+        { data: 'created_at', name: 'created_at' },
+        { data: 'updated_at', name: 'updated_at' },
+        { data: 'action', name: 'action', orderable: false, searchable: false}
+    ],
+    language: {
+        searchPlaceholder: "Search for records..."
+    },
+    dom: 'Blfrtip',
+    buttons: [
+        {
+            extend: 'excelHtml5',
+            title: 'Export Data'
+        },
+        {
+            extend: 'csvHtml5',
+            title: 'Export Data'
+        },
+        {
+            extend: 'print',
+            title: 'Daftar User'
+        }
+    ],
+    "initComplete": function(settings, json) {
+        $(this).closest('.dataTables_wrapper').prepend(dataTableButtons);
+    }
+});
+
+// Add blue line when search is active
+$('.dataTables_filter input[type=search]').focus(function () {
+    $(this).closest('.dataTables_filter').addClass('dataTables_filter--toggled');
+});
+
+$('.dataTables_filter input[type=search]').blur(function () {
+    $(this).closest('.dataTables_filter').removeClass('dataTables_filter--toggled');
+});
+
+$('body').on('click', '[data-table-action]', function (e) {
+    e.preventDefault();
+
+    var exportFormat = $(this).data('table-action');
+
+    if(exportFormat === 'excel') {
+        $(this).closest('.dataTables_wrapper').find('.buttons-excel').trigger('click');
+    }
+    if(exportFormat === 'csv') {
+        $(this).closest('.dataTables_wrapper').find('.buttons-csv').trigger('click');
+    }
+    if(exportFormat === 'print') {
+        $(this).closest('.dataTables_wrapper').find('.buttons-print').trigger('click');
+    }
+    if(exportFormat === 'fullscreen') {
+        var parentCard = $(this).closest('.card');
+
+        if(parentCard.hasClass('card--fullscreen')) {
+            parentCard.removeClass('card--fullscreen');
+            $('body').removeClass('data-table-toggled');
+        }
+        else {
+            parentCard.addClass('card--fullscreen')
+            $('body').addClass('data-table-toggled');
+        }
+    }
+});
+
+$('body').on('click', '[data-delete-id]', function (e) {
+  e.preventDefault();
+  var id = $(this).attr('data-delete-id');
+   swal({
+        title: 'Are you sure?',
+        text: 'You will not be able to recover this data!',
+        type: 'warning',
+        showCancelButton: true,
+        buttonsStyling: false,
+        confirmButtonClass: 'btn btn-danger',
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonClass: 'btn btn-secondary'
+    }).then(function(){       
+        $.ajax({
+          url: '{{ url("hak_akses/delete") }}',
+          type: 'GET',
+          dataType: "json",
+          data: { data : id },
+          success: function(response){
+            swal({
+                title: 'Information!',
+                text: 'Data berhasil dihapus',
+                type: 'success',
+                buttonsStyling: false,
+                confirmButtonClass: 'btn btn-primary'
+            });
+            table.ajax.reload();
+          },
+          error: function(errors){
+             swal({
+                title: 'Error',
+                text: errors,
+                type: 'warning',
+                buttonsStyling: false,
+                confirmButtonClass: 'btn btn-primary'
+            })
+          }
+        });
+    });
+});
+
+
+
+</script>
+@endpush

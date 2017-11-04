@@ -39,8 +39,9 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::post('/hak_akses/{hak_akses}','Admin\HakAksesController@update')->name('hak_akses.update');
 	Route::get('/hak_akses/delete','Admin\HakAksesController@delete')->name('hak_akses.delete');
 
-	Route::view('/calendar','include.calendar');
-	Route::view('/kecamatan','penduduk.kecamatan');
+	Route::get('/kecamatan','Penduduk\WilayahController@index')->name('kecamatan');
+
+	Route::view('/calendar','include.calendar');	
 	Route::view('/kecamatan/create','penduduk.kecamatan_create');
 	Route::view('/kampung','penduduk.kampung');
 	Route::view('/kampung/create','penduduk.kampung_create');

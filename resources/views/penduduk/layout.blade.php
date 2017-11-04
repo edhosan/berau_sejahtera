@@ -3,18 +3,37 @@
 @section('content')
 <header class="content__title">
  <h1>Kependudukan</h1>
-  <small>Entry, ubah, & hapus data wilayah, keluarga, penduduk, rumah tangga dan keluarga</small> 
+  <small>Manajemen Data Wilayah Administratif</small> 
 </header>
 
-<div class="toolbar">
-  <nav class="toolbar__nav">
-    <a class="nav-link {{ active(['kecamatan','kecamatan/create','kampung','kampung/create','rw','rw/create','rt','rt/create']) }}" href="{{ url('kecamatan') }}">Wilayah Administrasi</a>    
-    <a class="nav-link {{ active(['keluarga','keluarga/create','keluarga/create/old','keluarga/rincian','keluarga/rincian/create']) }}" href="{{ url('keluarga') }}">Keluarga</a>
-    <a class="nav-link {{ active(['penduduk','penduduk/create']) }}" href="{{ url('penduduk') }}">Penduduk</a>
-    <a class="nav-link {{ active(['rumah_tangga']) }}" href="{{ url('rumah_tangga') }}">Rumah Tangga</a>
-    <a class="nav-link {{ active(['kelompok']) }}" href="{{ url('kelompok') }}" >Kelompok</a>
-  </nav>
+<div class="card">
+  	<div class="card-header">  
+	     <ul class="nav nav-tabs card-header-tabs">
+	      <li class="nav-item">
+	        <a class="nav-link" href="#">Active</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="#">Link</a>
+	      </li>
+	       <li class="nav-item dropdown">
+	        <a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+	        <div class="dropdown-menu">
+	          <a class="dropdown-item active" href="#">Action</a>
+	          <a class="dropdown-item" href="#">Another action</a>
+	          <a class="dropdown-item" href="#">Something else here</a>
+	          <div class="dropdown-divider"></div>
+	          <a class="dropdown-item" href="#">Separated link</a>
+	        </div>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link disabled" href="#">Disabled</a>
+	      </li>
+	    </ul>            
+	</div>
+
+	<div class="card-block">
+		@yield('content-penduduk')
+	</div>
 </div>
-@yield('content-penduduk')
 
 @endsection

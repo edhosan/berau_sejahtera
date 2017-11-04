@@ -38,17 +38,7 @@
       </aside>
 
      <section class="content">
-       <!--
-       <header class="content__title">
-         <h1>@yield('content-header-title')</h1>
-
-         <div class="actions">
-           @yield('content-header-actions')
-         </div>
-       </header>
-     -->
        @yield('content')
-
        <footer class="footer hidden-xs-down">
           @include ('include.footer')
       </footer>
