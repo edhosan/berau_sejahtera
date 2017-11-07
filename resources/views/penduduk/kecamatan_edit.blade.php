@@ -2,16 +2,16 @@
 
 @section('content-penduduk')
 	<br>
-	<h4 class="card-title">Entry Data Wilayah Administrasi Kecamatan</h4>
+	<h4 class="card-title">Ubah Data Kecamatan {{ $kecamatan->nm_kecamatan }}</h4>
 	<br>
 	<div class="container">
-		<form action="{{ url('kecamatan/store') }}" method="post">
+		<form action="{{ route('kecamatan.update', $kecamatan) }}" method="post">
 		     {{ csrf_field() }}
 
 		     <div class="form-group row {{ $errors->has('id') ? 'has-danger' : '' }} ">
 		         <label class="col-sm-2 col-form-label">ID</label>
 		         <div class="col-sm-4">
-			        <input type="text" name="id" class="form-control {{ $errors->has('id') ? 'form-control-danger' : '' }}" value="{{ old('id') }}" autofocus>
+			        <input type="text" name="id" class="form-control {{ $errors->has('id') ? 'form-control-danger' : '' }}" value="{{ $kecamatan->id or old('id') }}" readonly="readonly">
 			        <i class="form-group__bar"></i>	       	
 		         </div>	      
 
@@ -23,7 +23,7 @@
 		     <div class="form-group row {{ $errors->has('nm_kecamatan') ? 'has-danger' : '' }}">
 		         <label class="col-sm-2 col-form-label">Nama Kecamatan</label>
 		         <div class="col-sm-4">
-		         	<input type="text" name="nm_kecamatan" class="form-control {{ $errors->has('nm_kecamatan') ? 'form-control-danger' : '' }}" value="{{ old('nm_kecamatan') }}">
+		         	<input type="text" name="nm_kecamatan" class="form-control {{ $errors->has('nm_kecamatan') ? 'form-control-danger' : '' }}" value="{{ $kecamatan->nm_kecamatan or old('nm_kecamatan') }}" autofocus>
 		        	 <i class="form-group__bar"></i>
 
 		         </div>

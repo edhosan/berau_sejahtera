@@ -4,9 +4,9 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class WilKecamatan extends Model
+class WilKampung extends Model
 {
-    protected $table = 'wil_kecamatan';
+    protected $table = 'wil_kampung';
 
     protected $primaryKey = 'id';
 
@@ -15,12 +15,11 @@ class WilKecamatan extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
-        'id', 'nm_kecamatan'
+        'id', 'nm_kampung'
     ];
 
-    public function kampung()
+    public function kecamatan()
     {
-    	return $this->hasMany('App\Model\WilKampung');
+    	return $this->belongsTo('App\Model\WilKecamatan');
     }
-    
 }

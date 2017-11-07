@@ -33,7 +33,7 @@
             </ul>
         </li>
 
-        <li class="navigation__{{ active(['kecamatan','kecamatan/create','kampung','kampung/create','rw','rw/create','rt','rt/create','keluarga','keluarga/create','keluarga/create/old','keluarga/rincian','keluarga/rincian/create','penduduk','penduduk/create','rumah_tangga','kelompok']) }}"><a href="{{ url('kecamatan') }}"><i class="zmdi zmdi-format-underlined"></i> Kependudukan</a></li>
+        <li class="navigation__{{ active(['kecamatan','kecamatan/*']) }}"><a href="{{ route('kecamatan.index') }}"><i class="zmdi zmdi-format-underlined"></i> Kependudukan</a></li>
 
         <li class="navigation__{{ active(['pendataan','pendataan/create','pendataan/kategori','pendataan/pertanyaan','pendataan/parameter','pendataan/klasifikasi','pendataan/periode']) }}"><a href="{{ url('pendataan') }}"><i class="zmdi zmdi-widgets"></i> Pendataan</a></li>
 

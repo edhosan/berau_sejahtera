@@ -2,11 +2,11 @@
 
 namespace App\DataTables;
 
-use App\Model\WilKecamatan;
+use App\Model\WilKampung;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
-class WilKecDataTables extends DataTable
+class WilKampungDataTables extends DataTable
 {
     /**
      * Build DataTable class.
@@ -16,18 +16,16 @@ class WilKecDataTables extends DataTable
      */
     public function dataTable($query)
     {
-        $dataTable = new EloquentDataTable($query);     
+        $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', function($data) {
+         return $dataTable->addColumn('action', function($data) {
             return '<div class="btn-group">
                         <a href="'.url('/kecamatan').'/'.$data->id.'/kampung" class="btn btn-sm btn-outline-success" data-toggle="tooltip" title="Kampung"><i class="zmdi zmdi-view-list"></i></a> 
-                        <a href="'.url('/kecamatan').'/'.$data->id.'/edit" class="btn btn-sm btn-outline-info" data-toggle="tooltip" title="Ubah"><i class="zmdi zmdi-edit"></i></a>
+                        <a href="'.url('/kecamatan').'/'.$data->wil_kecamatan_id.'/kampung/'.$data->id.'/edit" class="btn btn-sm btn-outline-info" data-toggle="tooltip" title="Ubah"><i class="zmdi zmdi-edit"></i></a>
                         <a href="#" class="btn btn-sm btn-outline-danger" data-delete-id="'.$data->id.'" data-toggle="tooltip" title="Hapus" ><i class="zmdi zmdi-delete"></i></a>
                     </div>';
           }
-        )->addColumn('kampung', function($data){
-            return $data->kampung()->count();
-        });
+        );
     }
 
     /**
@@ -36,9 +34,9 @@ class WilKecDataTables extends DataTable
      * @param \App\User $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(WilKecamatan $model)
-    {
-        return $model->newQuery()->select($this->getColumns());
+    public function query(WilKampung $model)
+    {          
+        return $model->where('wil_kecamatan_id', $this->wil_kecamatan_id)->newQuery()->select($this->getColumns());
     }
 
     /**
@@ -74,7 +72,8 @@ class WilKecDataTables extends DataTable
     {
         return [
             'id',
-            'nm_kecamatan',
+            'wil_kecamatan_id',
+            'nm_kampung',
             'created_at',
             'updated_at'
         ];
@@ -87,6 +86,6 @@ class WilKecDataTables extends DataTable
      */
     protected function filename()
     {
-        return 'wilkecdatatables_' . time();
+        return 'wilkampungdatatables_' . time();
     }
 }

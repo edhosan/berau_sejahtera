@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('penduduk.layout')
 
 @section('vendors-script')
   @parent
@@ -8,22 +8,23 @@
   <script src="{{ asset('vendors/bower_components/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
   <script src="{{ asset('vendors/bower_components/jszip/dist/jszip.min.js') }}"></script>
   <script src="{{ asset('vendors/bower_components/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
-  <script src="{{ asset('vendors/bower_components/sweetalert2/dist/sweetalert2.min.js') }}"></script>
 @endsection
 
 @section('content-penduduk')
-   <p></p>
+   <br>
    <h4 class="card-title">Wilayah Administratif Kecamatan</h4>
-   <a href="{{ route('hak_akses.create') }}" class="btn btn-primary waves-effect">Tambah Data</a>
+   <br>
+   <a href="{{ url('kecamatan/create') }}" class="btn btn-primary waves-effect">Tambah Data Kecamatan</a>
    <div class="table-responsive">
      <table id="data-table-kecamatan" class="table table-bordered">
        <thead class="thead-default">
            <tr>
                <th>ID</th>
                <th>KECAMATAN</th>
+               <th>KAMPUNG</th>
                <th>TGL.DIBUAT</th>
                <th>TGL.DIUBAH</th>
-               <th>Action</th>
+               <th>ACTION</th>
            </tr>
        </thead>
      </table>
@@ -53,8 +54,9 @@ var table = $('#data-table-kecamatan').DataTable({
     serverSide: true,
     processing: true,
     columns: [
-        { data: 'id', name: 'id', visible: false },
+        { data: 'id', name: 'id'},
         { data: 'nm_kecamatan', name: 'nm_kecamatan' },
+        { data: 'kampung', name: 'kampung' },
         { data: 'created_at', name: 'created_at' },
         { data: 'updated_at', name: 'updated_at' },
         { data: 'action', name: 'action', orderable: false, searchable: false}
@@ -133,7 +135,7 @@ $('body').on('click', '[data-delete-id]', function (e) {
         cancelButtonClass: 'btn btn-secondary'
     }).then(function(){       
         $.ajax({
-          url: '{{ url("hak_akses/delete") }}',
+          url: '{{ url("kecamatan/delete") }}',
           type: 'GET',
           dataType: "json",
           data: { data : id },

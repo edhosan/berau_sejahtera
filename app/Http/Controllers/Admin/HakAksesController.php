@@ -36,7 +36,7 @@ class HakAksesController extends Controller
     }
 
     public function update(StoreHakAkses $request, Permission $hak_akses)
-    {
+    {       
     	$hak_akses->update([
             'name' => $request->name,
             'guard_name' => $request->guard_name

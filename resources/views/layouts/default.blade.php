@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="{{ asset('vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css') }}">
         <link rel="stylesheet" href="{{ asset('vendors/bower_components/animate.css/animate.min.css') }}">
         <link rel="stylesheet" href="{{ asset('vendors/bower_components/jquery.scrollbar/jquery.scrollbar.css') }}">
+        <link rel="stylesheet" href="{{ asset('vendors/bower_components/sweetalert2/dist/sweetalert2.min.css') }}">
       @show
 
       <!-- App styles -->
@@ -37,7 +38,16 @@
         @include ('include.sidebar')
       </aside>
 
-     <section class="content">
+     <section class="content">   
+       <header class="content__title">
+        <h1>@yield('title')</h1>
+        <small>@yield('subtitle')</small> 
+      </header>
+     
+      <div class="alert alert-success alert-dismissible fade show" role="alert" id='success-alert'>
+        <strong>Success!</strong> {!! session('flash_message') !!}.
+      </div>
+
        @yield('content')
        <footer class="footer hidden-xs-down">
           @include ('include.footer')
@@ -90,28 +100,30 @@
       <script src="{{ asset('vendors/bower_components/Waves/dist/waves.min.js') }}"></script>
       <script src="{{ asset('vendors/bower_components/jquery.scrollbar/jquery.scrollbar.min.js') }}"></script>
       <script src="{{ asset('vendors/bower_components/jquery-scrollLock/jquery-scrollLock.min.js') }}"></script>
-      <script src="{{ asset('vendors/bower_components/remarkable-bootstrap-notify/dist/bootstrap-notify.min.js') }}"></script>
+      <script src="{{ asset('vendors/bower_components/sweetalert2/dist/sweetalert2.min.js') }}"></script>
     @show
 
     <!-- App functions and actions -->
     <script src="{{ asset('js/app.min.js') }}"></script>
-    <script type="text/javascript">
+    <!--
+    
        @foreach($errors->all() as $message)
          $.notify({
            message: '{{ $message }}'
            },{
            type: 'danger'
          });
-       @endforeach
+       @endforeach -->
 
+    <script type="text/javascript">
+       $("#success-alert").hide();
+       
        @if(Session::has('flash_message'))
-         $.notify({
-           message: '{!! session('flash_message') !!}'
-           },{
-           type: 'info'
-         });
+        $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+          $("#success-alert").slideUp(500);
+        });  
        @endif
-    </script>
+    </script> 
     @stack('scripts')
   </body>
 </html>

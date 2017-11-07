@@ -13,7 +13,6 @@
   <script src="{{ asset('vendors/bower_components/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
   <script src="{{ asset('vendors/bower_components/jszip/dist/jszip.min.js') }}"></script>
   <script src="{{ asset('vendors/bower_components/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
-  <script src="{{ asset('vendors/bower_components/sweetalert2/dist/sweetalert2.min.js') }}"></script>
 @endsection
 
 @section('content')

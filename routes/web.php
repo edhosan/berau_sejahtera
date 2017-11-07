@@ -39,14 +39,22 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::post('/hak_akses/{hak_akses}','Admin\HakAksesController@update')->name('hak_akses.update');
 	Route::get('/hak_akses/delete','Admin\HakAksesController@delete')->name('hak_akses.delete');
 
-	Route::get('/kecamatan','Penduduk\WilayahController@index')->name('kecamatan');
+	Route::get('/kecamatan','Penduduk\WilayahController@index')->name('kecamatan.index');
+	Route::get('/kecamatan/create','Penduduk\WilayahController@create')->name('kecamatan.create');
+	Route::post('/kecamatan/store','Penduduk\WilayahController@storeKecamatan')->name('kecamatan.store');
+	Route::get('/kecamatan/{kecamatan}/edit','Penduduk\WilayahController@editKecamatan')->name('kecamatan.edit');
+	Route::post('/kecamatan/{kecamatan}','Penduduk\WilayahController@updateKecamatan')->name('kecamatan.update');
+	route::get('/kecamatan/delete','Penduduk\WilayahController@deleteKecamatan')->name('kecamatan.delete');
+	Route::get('/kecamatan/{kecamatan}/kampung','Penduduk\WilayahController@listKampung')->name('kampung.index');
+	Route::get('/kecamatan/{kecamatan}/kampung/create','Penduduk\WilayahController@createKampung')->name('kampung.create');
+	Route::post('/kecamatan/{kecamatan}/kampung/store','Penduduk\WilayahController@storeKampung')->name('kampung.store');
+	Route::get('/kecamatan/{kecamatan}/kampung/{id}/edit','Penduduk\WilayahController@editKampung')->name('kampung.edit');
+	Route::post('/kecamatan/{kecamatan}/kampung','Penduduk\WilayahController@updateKampung')->name('kampung.update');
+	route::get('/kecamatan/kampung/delete','Penduduk\WilayahController@deleteKampung')->name('kampung.delete');
+	Route::get('/kecamatan/{kecamatan}/{wil_kampung_id}/rw','Penduduk\WilayahController@listRw')->name('rw.index');
 
-	Route::view('/calendar','include.calendar');	
-	Route::view('/kecamatan/create','penduduk.kecamatan_create');
-	Route::view('/kampung','penduduk.kampung');
-	Route::view('/kampung/create','penduduk.kampung_create');
-	Route::view('/rw','penduduk.rw');
-	Route::view('/rw/create','penduduk.rw_create');
+
+	Route::view('/calendar','include.calendar');		
 	Route::view('/rt','penduduk.rt');
 	Route::view('/rt/create','penduduk.rt_create');
 	Route::view('/keluarga','penduduk.keluarga');
