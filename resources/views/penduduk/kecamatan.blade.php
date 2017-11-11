@@ -22,6 +22,8 @@
                <th>ID</th>
                <th>KECAMATAN</th>
                <th>KAMPUNG</th>
+               <th>RW</th>
+               <th>RT</th>
                <th>TGL.DIBUAT</th>
                <th>TGL.DIUBAH</th>
                <th>ACTION</th>
@@ -57,6 +59,8 @@ var table = $('#data-table-kecamatan').DataTable({
         { data: 'id', name: 'id'},
         { data: 'nm_kecamatan', name: 'nm_kecamatan' },
         { data: 'kampung', name: 'kampung' },
+        { data: 'tot_rw', name: 'tot_rw' },
+        { data: 'tot_rt', name: 'tot_rt' },
         { data: 'created_at', name: 'created_at' },
         { data: 'updated_at', name: 'updated_at' },
         { data: 'action', name: 'action', orderable: false, searchable: false}

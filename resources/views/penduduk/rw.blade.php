@@ -14,21 +14,22 @@
    <br>
    <h4 class="card-title">Wilayah Administratif RW (Kampung/Kelurahan {{ $kampung->nm_kampung }})</h4>
    <br>
-   <a href="{{ route('kampung.create', $kampung) }}" class="btn btn-primary waves-effect">Tambah Data RW</a>
+   <a href="{{ route('rw.create', [$kecamatan->id, $kampung->id]) }}" class="btn btn-primary waves-effect">Tambah Data RW</a>
    <div class="table-responsive">
      <table id="data-table-rw" class="table table-bordered">
        <thead class="thead-default">
            <tr>
                <th>ID</th>
                <th>RW</th>
+               <th>RT</th>
                <th>TGL.DIBUAT</th>
                <th>TGL.DIUBAH</th>
                <th>ACTION</th>
            </tr>
        </thead>
-     </table>
+     </table> 
    </div>  
-   <a href="{{ route('kecamatan.index') }}" class="btn btn-secondary waves-effect">Kembali</a>
+   <a href="{{ route('kampung.index', $kecamatan) }}" class="btn btn-secondary waves-effect">Kembali</a>
 @endsection
 
 @push('scripts')
@@ -50,12 +51,13 @@ var table = $('#data-table-rw').DataTable({
     autoWidth: false,
     responsive: true,
     lengthMenu: [[15, 30, 45, -1], ['15 Rows', '30 Rows', '45 Rows', 'Everything']],
-    ajax: '{{ route("rw.index", $kampung) }}',
+    ajax: '{{ route("rw.index", [$kecamatan->id, $kampung->id]) }}',
     serverSide: true,
     processing: true,
     columns: [
         { data: 'id', name: 'id'},
         { data: 'rw', name: 'rw' },
+        { data: 'tot_rt', name: 'tot_rt' },
         { data: 'created_at', name: 'created_at' },
         { data: 'updated_at', name: 'updated_at' },
         { data: 'action', name: 'action', orderable: false, searchable: false}
@@ -134,10 +136,10 @@ $('body').on('click', '[data-delete-id]', function (e) {
         cancelButtonClass: 'btn btn-secondary'
     }).then(function(){       
         $.ajax({
-          url: '{{ url("kecamatan/kampung/delete") }}',
+          url: '{{ url("kecamatan/rw/delete") }}',
           type: 'GET',
           dataType: "json",
-          data: { id : id, wil_kecamatan_id: {{ $kecamatan->id }} },
+          data: { id : id, wil_kecamatan_id: {{ $kecamatan->id }}, wil_kampung_id: {{ $kampung->id }} },
           success: function(response){
             swal({
                 title: 'Information!',

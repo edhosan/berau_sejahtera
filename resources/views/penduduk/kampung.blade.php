@@ -21,6 +21,8 @@
            <tr>
                <th>ID</th>
                <th>KAMPUNG</th>
+               <th>RW</th>
+               <th>RT</th>
                <th>TGL.DIBUAT</th>
                <th>TGL.DIUBAH</th>
                <th>ACTION</th>
@@ -56,6 +58,8 @@ var table = $('#data-table-kampung').DataTable({
     columns: [
         { data: 'id', name: 'id'},
         { data: 'nm_kampung', name: 'nm_kampung' },
+        { data: 'tot_rw', name: 'tot_rw' },
+        { data: 'tot_rt', name: 'tot_rt' },
         { data: 'created_at', name: 'created_at' },
         { data: 'updated_at', name: 'updated_at' },
         { data: 'action', name: 'action', orderable: false, searchable: false}

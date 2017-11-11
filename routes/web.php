@@ -40,7 +40,7 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('/hak_akses/delete','Admin\HakAksesController@delete')->name('hak_akses.delete');
 
 	Route::get('/kecamatan','Penduduk\WilayahController@index')->name('kecamatan.index');
-	Route::get('/kecamatan/create','Penduduk\WilayahController@create')->name('kecamatan.create');
+	Route::get('/kecamatan/create','Penduduk\WilayahController@createKecamatan')->name('kecamatan.create');
 	Route::post('/kecamatan/store','Penduduk\WilayahController@storeKecamatan')->name('kecamatan.store');
 	Route::get('/kecamatan/{kecamatan}/edit','Penduduk\WilayahController@editKecamatan')->name('kecamatan.edit');
 	Route::post('/kecamatan/{kecamatan}','Penduduk\WilayahController@updateKecamatan')->name('kecamatan.update');
@@ -52,6 +52,17 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::post('/kecamatan/{kecamatan}/kampung','Penduduk\WilayahController@updateKampung')->name('kampung.update');
 	route::get('/kecamatan/kampung/delete','Penduduk\WilayahController@deleteKampung')->name('kampung.delete');
 	Route::get('/kecamatan/{kecamatan}/{wil_kampung_id}/rw','Penduduk\WilayahController@listRw')->name('rw.index');
+	Route::get('/kecamatan/{kecamatan}/{wil_kampung_id}/rw/create','Penduduk\WilayahController@createRW')->name('rw.create');
+	Route::post('/kecamatan/{kecamatan}/{wil_kampung_id}/rw/store','Penduduk\WilayahController@storeRW')->name('rw.store');
+	Route::get('/kecamatan/{kecamatan}/{wil_kampung_id}/rw/{id}/edit','Penduduk\WilayahController@editRW')->name('rw.edit');
+	Route::post('/kecamatan/{kecamatan}/{wil_kampung_id}/rw/{id}/update','Penduduk\WilayahController@updateRw')->name('rw.update');
+	route::get('/kecamatan/rw/delete','Penduduk\WilayahController@deleteRw')->name('rw.delete');
+	Route::get('/kecamatan/{kecamatan}/{wil_kampung_id}/{wil_rw_id}/rt','Penduduk\WilayahController@listRT')->name('rt.index');
+	Route::get('/kecamatan/{kecamatan}/{wil_kampung_id}/{wil_rw_id}/rt/create','Penduduk\WilayahController@createRT')->name('rt.create');
+	Route::post('/kecamatan/{kecamatan}/{wil_kampung_id}/{wil_rw_id}/rt/store','Penduduk\WilayahController@storeRT')->name('rt.store');
+	Route::get('/kecamatan/{kecamatan}/{wil_kampung_id}/{wil_rw_id}/rt/{id}/edit','Penduduk\WilayahController@editRT')->name('rt.edit');
+	Route::post('/kecamatan/{kecamatan}/{wil_kampung_id}/{wil_rw_id}/rt/{id}/update','Penduduk\WilayahController@updateRT')->name('rt.update');
+	route::get('/kecamatan/rt/delete','Penduduk\WilayahController@deleteRT')->name('rt.delete');
 
 
 	Route::view('/calendar','include.calendar');		

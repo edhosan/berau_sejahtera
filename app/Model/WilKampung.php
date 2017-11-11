@@ -22,4 +22,14 @@ class WilKampung extends Model
     {
     	return $this->belongsTo('App\Model\WilKecamatan');
     }
+
+    public function rw()
+    {
+        return $this->hasMany('App\Model\WilRw');
+    }
+
+    public function rt()
+    {
+        return $this->hasManyThrough('App\Model\WilRT', 'App\Model\Rw');
+    }
 }

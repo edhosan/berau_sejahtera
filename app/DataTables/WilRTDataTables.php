@@ -2,12 +2,11 @@
 
 namespace App\DataTables;
 
-use App\Model\WilKampung;
 use App\Model\WilRT;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
-class WilKampungDataTables extends DataTable
+class WilRTDataTables extends DataTable
 {
     /**
      * Build DataTable class.
@@ -19,22 +18,13 @@ class WilKampungDataTables extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-         return $dataTable->addColumn('action', function($data) {
+        return $dataTable->addColumn('action', function($data) {
             return '<div class="btn-group">
-                        <a href="'.url('/kecamatan').'/'.$this->wil_kecamatan_id.'/'.$data->id.'/rw" class="btn btn-sm btn-outline-success" data-toggle="tooltip" title="RW"><i class="zmdi zmdi-view-list"></i></a> 
-                        <a href="'.url('/kecamatan').'/'.$data->wil_kecamatan_id.'/kampung/'.$data->id.'/edit" class="btn btn-sm btn-outline-info" data-toggle="tooltip" title="Ubah"><i class="zmdi zmdi-edit"></i></a>
+                        <a href="'.url('/kecamatan').'/'.$this->wil_kecamatan_id.'/'.$this->wil_kampung_id.'/'.$this->wil_rw_id.'/rt/'.$data->id.'/edit" class="btn btn-sm btn-outline-info" data-toggle="tooltip" title="Ubah"><i class="zmdi zmdi-edit"></i></a>
                         <a href="#" class="btn btn-sm btn-outline-danger" data-delete-id="'.$data->id.'" data-toggle="tooltip" title="Hapus" ><i class="zmdi zmdi-delete"></i></a>
                     </div>';
           }
-        )->addColumn('tot_rw', function($data){
-            return $data->rw()->count();
-        })->addColumn('tot_rt', function($data){
-            $rt = WilRT::where('wil_kecamatan_id', $this->wil_kecamatan_id)
-                    ->where('wil_kampung_id', $data->id)
-                    ->count();
-
-            return $rt;
-        });
+        );
     }
 
     /**
@@ -43,9 +33,13 @@ class WilKampungDataTables extends DataTable
      * @param \App\User $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(WilKampung $model)
-    {          
-        return $model->where('wil_kecamatan_id', $this->wil_kecamatan_id)->newQuery()->select($this->getColumns());
+    public function query(WilRT $model)
+    {
+        return $model->newQuery()
+            ->where('wil_kecamatan_id', $this->wil_kecamatan_id)
+            ->where('wil_kampung_id', $this->wil_kampung_id)
+            ->where('wil_rw_id', $this->wil_rw_id)
+            ->select($this->getColumns());
     }
 
     /**
@@ -81,8 +75,7 @@ class WilKampungDataTables extends DataTable
     {
         return [
             'id',
-            'wil_kecamatan_id',
-            'nm_kampung',
+            'rt',
             'created_at',
             'updated_at'
         ];
@@ -95,6 +88,6 @@ class WilKampungDataTables extends DataTable
      */
     protected function filename()
     {
-        return 'wilkampungdatatables_' . time();
+        return 'wilrtdatatables_' . time();
     }
 }

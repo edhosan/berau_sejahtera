@@ -6,10 +6,16 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\DataTables\WilKecDataTables;
 use App\DataTables\WilKampungDataTables;
+use App\DataTables\WilRwDataTables;
+use App\DataTables\WilRTDataTables;
 use App\Http\Requests\StoreKecamatan;
 use App\Http\Requests\StoreKampung;
+use App\Http\Requests\StoreRW;
+use App\Http\Requests\StoreRT;
 use App\Model\WilKecamatan;
 use App\Model\WilKampung;
+use App\Model\WilRW;
+use App\Model\WilRT;
 
 class WilayahController extends Controller
 {
@@ -110,6 +116,125 @@ class WilayahController extends Controller
             return $dataTables->with('wil_kecamatan_id', $kecamatan->id)->with('wil_kampung_id', $wil_kampung_id)->render('penduduk.rw');
         }
 
-        return view('penduduk.rw')->withKecamatan($kecamatan);
+        $kampung = $kecamatan->kampung()->whereId($wil_kampung_id)->first();
+
+        return view('penduduk.rw')->withKecamatan($kecamatan)->withKampung($kampung);
+    }
+
+    public function createRW(WilKecamatan $kecamatan, $wil_kampung_id)
+    {
+        $kampung = $kecamatan->kampung()->whereId($wil_kampung_id)->first();
+
+        return view('penduduk.rw_create')->withKecamatan($kecamatan)->withKampung($kampung);
+    }
+
+    public function storeRW(StoreRW $request, WilKecamatan $kecamatan, $wil_kampung_id)
+    {
+        $kampung = $kecamatan->kampung()->whereId($wil_kampung_id)->first();
+
+        $kampung->rw()->create([
+           'id' => $request->id,
+           'wil_kecamatan_id' => $kecamatan->id,
+           'rw' => $request->rw
+        ]);
+
+        return redirect()->route('rw.index', [$kecamatan, $wil_kampung_id])->with('flash_message','Data berhasil disimpan!');  
+    }
+
+    public function editRW(WilKecamatan $kecamatan, $wil_kampung_id, $id)
+    {
+        $kampung = $kecamatan->kampung()->whereId($wil_kampung_id)->first();
+        $rw = $kampung->rw()->whereId($id)->first();
+
+        return view('penduduk.rw_edit')->withKecamatan($kecamatan)->withKampung($kampung)->withRw($rw);   
+    }
+
+    public function updateRw(StoreRW $request, WilKecamatan $kecamatan, $wil_kampung_id, $id)
+    {
+        $kampung = $kecamatan->kampung()->whereId($wil_kampung_id)->first();
+        $rw = $kampung->rw()->whereId($id)->first();
+
+        $result = $rw->update([
+            'rw' => $request->rw
+        ]);
+
+        return redirect()->route('rw.index', [$kecamatan, $wil_kampung_id])->with('flash_message','Data berhasil disimpan!');     
+    }
+
+    public function deleteRw(Request $request)
+    {
+        $rw = WilRW::whereId($request->id)->where('wil_kecamatan_id', $request->wil_kecamatan_id)->where('wil_kampung_id', $request->wil_kampung_id);
+
+        return response()->json($rw->delete());
+    }
+
+    public function listRT(Request $request, WilRTDataTables $dataTables, WilKecamatan $kecamatan, $wil_kampung_id, $wil_rw_id)
+    {
+        if($request->ajax()){
+            return $dataTables->with('wil_kecamatan_id', $kecamatan->id)->with('wil_kampung_id', $wil_kampung_id)->with('wil_rw_id', $wil_rw_id)->render('penduduk.rt');
+        }
+
+        $kampung = $kecamatan->kampung()->whereId($wil_kampung_id)->first();
+        $rw = $kampung->rw()->whereId($wil_rw_id)->first();
+
+        return view('penduduk.rt')->withKecamatan($kecamatan)->withKampung($kampung)->withRw($rw);
+    }
+
+    public function createRT(WilKecamatan $kecamatan, $wil_kampung_id, $wil_rw_id)
+    {
+        $kampung = $kecamatan->kampung()->whereId($wil_kampung_id)->first();
+        $rw = $kampung->rw()->whereId($wil_rw_id)->first();
+
+        return view('penduduk.rt_create')->withKecamatan($kecamatan)->withKampung($kampung)->withRw($rw);
+    }
+
+    public function storeRT(StoreRT $request, WilKecamatan $kecamatan, $wil_kampung_id, $wil_rw_id)
+    {
+        $kampung = $kecamatan->kampung()->whereId($wil_kampung_id)->first();   
+        $rw = $kampung->rw()->whereId($wil_rw_id)->first();
+
+        $rw->rt()->create([
+            'wil_kecamatan_id'  => $request->wil_kecamatan_id,
+            'wil_kampung_id'    => $request->wil_kampung_id,
+            'id'    => $request->id,
+            'rt'    => $request->rt
+        ]);
+
+        return redirect()->route('rt.index', [$kecamatan, $wil_kampung_id, $wil_rw_id])->with('flash_message','Data berhasil disimpan!');     
+    }
+
+    public function editRT(WilKecamatan $kecamatan, $wil_kampung_id, $wil_rw_id, $id)
+    {
+        $kampung = $kecamatan->kampung()->whereId($wil_kampung_id)->first();   
+        $rw = $kampung->rw()->whereId($wil_rw_id)->first();
+        $rt = $rw->rt()->whereId($id)->first();
+
+        return view('penduduk.rt_edit')->withKecamatan($kecamatan)->withKampung($kampung)->withRw($rw)->withRt($rt);   
+    }
+
+    public function updateRT(StoreRT $request, WilKecamatan $kecamatan, $wil_kampung_id, $wil_rw_id, $id)
+    {
+        $kampung = $kecamatan->kampung()->whereId($wil_kampung_id)->first();   
+        $rw = $kampung->rw()->whereId($wil_rw_id)->first();
+        $rt = $rw->rt()->whereId($id)->first();
+
+        $rt->update([
+            'rt'    => $request->rt
+        ]);        
+
+        return redirect()->route('rt.index', [$kecamatan, $wil_kampung_id, $wil_rw_id])->with('flash_message','Data berhasil disimpan!');     
+    }
+
+    public function deleteRT(Request $request)
+    {
+        $rt = WilRT::where('wil_kecamatan_id', $request->wil_kecamatan_id)
+                ->where('wil_kampung_id', $request->wil_kampung_id)
+                ->where('wil_rw_id', $request->wil_rw_id)
+                ->where('id', $request->id);
+
+
+        return response()->json($rt->delete());
+
+
     }
 }

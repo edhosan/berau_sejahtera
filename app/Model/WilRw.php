@@ -15,11 +15,16 @@ class WilRw extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
-        'id', 'rw'
+        'id', 'wil_kecamatan_id', 'rw'
     ];
 
     public function kampung()
     {
     	return $this->belongsTo('App\Model\WilKampung');
+    }
+
+    public function rt()
+    {
+        return $this->hasMany('App\Model\WilRT');
     }
 }

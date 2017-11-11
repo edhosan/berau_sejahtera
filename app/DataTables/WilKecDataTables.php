@@ -3,6 +3,8 @@
 namespace App\DataTables;
 
 use App\Model\WilKecamatan;
+use App\Model\WilRw;
+use App\Model\WilRT;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
@@ -27,6 +29,14 @@ class WilKecDataTables extends DataTable
           }
         )->addColumn('kampung', function($data){
             return $data->kampung()->count();
+        })->addColumn('tot_rw', function($data){
+            $rw = WilRw::where('wil_kecamatan_id', $data->id)->count();
+
+            return $rw;
+        })->addColumn('tot_rt', function($data){
+            $rt = WilRT::where('wil_kecamatan_id', $data->id)->count();
+
+            return $rt;
         });
     }
 
