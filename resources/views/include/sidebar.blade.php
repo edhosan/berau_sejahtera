@@ -37,12 +37,19 @@
 
         <li class="navigation__{{ active(['pendataan','pendataan/create','pendataan/kategori','pendataan/pertanyaan','pendataan/parameter','pendataan/klasifikasi','pendataan/periode']) }}"><a href="{{ url('pendataan') }}"><i class="zmdi zmdi-widgets"></i> Pendataan</a></li>
 
-        <li class="navigation__sub">
-            <a href=""><i class="zmdi zmdi-view-list"></i> Tables</a>
+        <li class="navigation__sub navigation__sub--{{ active(['datamaster','datamaster/*']) }}">
+            <a href=""><i class="zmdi zmdi-view-list"></i> Data Master</a>
 
             <ul>
-                <li><a href="html-table.html">HTML Table</a></li>
-                <li><a href="data-table.html">Data Table</a></li>
+                <li class="navigation__{{ active(['datamaster/agama','datamaster/agama/*']) }}"><a href="{{ route('agama.index') }}">Agama</a></li>
+                <li class="navigation__{{ active(['datamaster/pendidikankk','datamaster/pendidikankk/*']) }}"><a href="{{ route('pendidikankk.index') }}">Pendidikan dalam KK</a></li>
+                <li class="navigation__{{ active(['datamaster/pendidikan_ditempuh','datamaster/pendidikan_ditempuh/*']) }}"><a href="{{ route('pendidikan_ditempuh.index') }}">Pendidikan sedang ditempuh</a></li>
+                <li class="navigation__{{ active(['datamaster/pekerjaan','datamaster/pekerjaan/*']) }}"><a href="{{ route('pekerjaan.index') }}">Pekerjaan</a></li>
+                <li class="navigation__{{ active(['datamaster/status','datamaster/status/*']) }}"><a href="{{ route('status.index') }}">Status Kawin</a></li>
+                <li class="navigation__{{ active(['datamaster/hubungan','datamaster/hubungan/*']) }}"><a href="{{ route('hubungan.index') }}">Hubungan dalam keluarga</a></li>
+                <li class="navigation__{{ active(['datamaster/golongan','datamaster/golongan/*']) }}"><a href="{{ route('golongan.index') }}">Golongan Darah</a></li>
+                <li class="navigation__{{ active(['datamaster/cacat','datamaster/cacat/*']) }}"><a href="{{ route('cacat.index') }}">Cacat</a></li>
+                <li class="navigation__{{ active(['datamaster/akseptor','datamaster/akseptor/*']) }}"><a href="{{ route('akseptor.index') }}">Akseptor KB</a></li>
             </ul>
         </li>
 
