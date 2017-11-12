@@ -11,7 +11,7 @@
 @endsection
 
 @section('title','Data Master')
-@section('subtitle','Manajemen data master agama, pendidikan dalam kk, pendidikan sedang ditempuh, pekerjaan, status kawin, hubungan keluarga, golongan darah')
+@section('subtitle','Manajemen data master agama, pendidikan dalam kk, pendidikan sedang ditempuh, pekerjaan, hubungan keluarga, golongan darah, cacat, akseptor KB')
 
 @section('content')
 <div class="card">	
